@@ -1,0 +1,18 @@
+---
+description: Customer Tagger plugin context and change boundaries
+alwaysApply: true
+---
+
+# Customer Tagger
+
+WooCommerce workflow plugin for automated customer/order/product tags. Full layout: `AGENTS.md`.
+
+- Bootstrap: `customer-tagger.php` → `includes/class-customer-tagger.php` → `CT\Plugin::instance()->init()`
+- PSR-4: `CT\` maps to `includes/` via `includes/autoload.php`
+- Admin: `includes/Admin/` + `assets/js/admin.js`, `assets/css/admin.css` (slugs `customer-tagger*`, cap `manage_woocommerce`)
+- Engine / data: `includes/Engine/`, `Storage/`, `Database/`, `Triggers/`, `Scheduler/`
+- REST admin API: `ct/v1` in `includes/Rest/`
+- Public API: `ct_user_has_tag()`, `ct_get_user_tags()` in `includes/functions-api.php`
+- Legacy shell classes: `Customer_Tagger_*`; new code uses `CT\` namespace and `ct_`-prefixed options
+
+Prefer minimal diffs. No new dependencies unless asked. Plugin directory name contains a space—quote paths in shell commands.

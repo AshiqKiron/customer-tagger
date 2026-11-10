@@ -10,7 +10,7 @@
  * @wordpress-plugin
  * Plugin Name:       Customer Tagger
  * Plugin URI:        https://example.com/customer-tagger
- * Description:       Tag and organize WooCommerce customers.
+ * Description:       Automate WooCommerce customer, order, and product tags with rule-based workflows.
  * Version:           1.0.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
@@ -34,6 +34,8 @@ define( 'CUSTOMER_TAGGER_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'CUSTOMER_TAGGER_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'CUSTOMER_TAGGER_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
+require_once CUSTOMER_TAGGER_PLUGIN_DIR . 'includes/autoload.php';
+require_once CUSTOMER_TAGGER_PLUGIN_DIR . 'includes/functions-api.php';
 require_once CUSTOMER_TAGGER_PLUGIN_DIR . 'includes/class-customer-tagger.php';
 
 /**

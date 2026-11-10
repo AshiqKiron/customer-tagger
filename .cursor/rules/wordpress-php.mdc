@@ -1,0 +1,34 @@
+---
+description: PHP and WordPress conventions for Customer Tagger
+globs: **/*.php
+alwaysApply: false
+---
+
+# PHP in this plugin
+
+Every PHP file must include:
+
+```php
+declare( strict_types=1 );
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+```
+
+- New services: `namespace CT\...;` under `includes/`, one class per file matching the autoload path
+- User strings: `__()`, `_e()`, `esc_html__()`, etc. with text domain `customer-tagger`
+- Version assets with `CUSTOMER_TAGGER_VERSION`; use `CUSTOMER_TAGGER_*` constants from bootstrap
+- Options and public helpers: `ct_` prefix (`ct_settings`, `ct_user_has_tag()`)
+- Escape on output; sanitize/validate input; nonces + `manage_woocommerce` (or stricter) for admin/REST
+
+```php
+// ❌ BAD
+function save_tags() { }
+add_option( 'settings', $data );
+
+// ✅ GOOD
+namespace CT\Storage;
+function ct_get_user_tags( int $user_id ): array { }
+add_option( 'ct_settings', $data );
+```

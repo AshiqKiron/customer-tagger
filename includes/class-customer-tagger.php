@@ -13,8 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once CUSTOMER_TAGGER_PLUGIN_DIR . 'includes/class-customer-tagger-activator.php';
 require_once CUSTOMER_TAGGER_PLUGIN_DIR . 'includes/class-customer-tagger-deactivator.php';
-require_once CUSTOMER_TAGGER_PLUGIN_DIR . 'admin/class-customer-tagger-admin.php';
-require_once CUSTOMER_TAGGER_PLUGIN_DIR . 'public/class-customer-tagger-public.php';
 
 /**
  * Main Customer Tagger plugin orchestrator.
@@ -29,14 +27,7 @@ class Customer_Tagger {
 		register_deactivation_hook( CUSTOMER_TAGGER_PLUGIN_FILE, array( 'Customer_Tagger_Deactivator', 'deactivate' ) );
 
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
-
-		if ( is_admin() ) {
-			$admin = new Customer_Tagger_Admin();
-			$admin->init();
-		}
-
-		$public = new Customer_Tagger_Public();
-		$public->init();
+		add_action( 'plugins_loaded', array( $this, 'boot' ), 20 );
 	}
 
 	/**
@@ -48,5 +39,12 @@ class Customer_Tagger {
 			false,
 			dirname( CUSTOMER_TAGGER_PLUGIN_BASENAME ) . '/languages'
 		);
+	}
+
+	/**
+	 * Bootstrap CT plugin services.
+	 */
+	public function boot(): void {
+		CT\Plugin::instance()->init();
 	}
 }

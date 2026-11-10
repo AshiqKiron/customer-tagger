@@ -20,10 +20,7 @@ class Customer_Tagger_Deactivator {
 	 * Run on plugin deactivation.
 	 */
 	public static function deactivate(): void {
-		if ( ! current_user_can( 'activate_plugins' ) ) {
-			return;
-		}
-
-		// Placeholder: clear scheduled events or transient caches.
+		require_once CUSTOMER_TAGGER_PLUGIN_DIR . 'includes/autoload.php';
+		CT\Scheduler\ActionSchedulerBridge::deactivate();
 	}
 }
